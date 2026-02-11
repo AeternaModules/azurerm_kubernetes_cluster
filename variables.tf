@@ -301,17 +301,17 @@ EOT
     location                            = string
     name                                = string
     resource_group_name                 = string
-    support_plan                        = optional(string, "KubernetesOfficial")
-    sku_tier                            = optional(string, "Free")
-    run_command_enabled                 = optional(bool, true)
-    role_based_access_control_enabled   = optional(bool, true)
+    support_plan                        = optional(string) # Default: "KubernetesOfficial"
+    sku_tier                            = optional(string) # Default: "Free"
+    run_command_enabled                 = optional(bool)   # Default: true
+    role_based_access_control_enabled   = optional(bool)   # Default: true
     private_dns_zone_id                 = optional(string)
-    private_cluster_public_fqdn_enabled = optional(bool, false)
-    private_cluster_enabled             = optional(bool, false)
+    private_cluster_public_fqdn_enabled = optional(bool) # Default: false
+    private_cluster_enabled             = optional(bool) # Default: false
     open_service_mesh_enabled           = optional(bool)
     oidc_issuer_enabled                 = optional(bool)
     node_resource_group                 = optional(string)
-    node_os_upgrade_channel             = optional(string, "NodeImage")
+    node_os_upgrade_channel             = optional(string) # Default: "NodeImage"
     local_account_disabled              = optional(bool)
     image_cleaner_interval_hours        = optional(number)
     tags                                = optional(map(string))
@@ -325,9 +325,9 @@ EOT
     cost_analysis_enabled               = optional(bool)
     azure_policy_enabled                = optional(bool)
     automatic_upgrade_channel           = optional(string)
-    ai_toolchain_operator_enabled       = optional(bool, false)
+    ai_toolchain_operator_enabled       = optional(bool) # Default: false
     kubernetes_version                  = optional(string)
-    workload_identity_enabled           = optional(bool, false)
+    workload_identity_enabled           = optional(bool) # Default: false
     default_node_pool = object({
       auto_scaling_enabled          = optional(bool)
       capacity_reservation_group_id = optional(string)
@@ -340,7 +340,7 @@ EOT
         allowed_unsafe_sysctls    = optional(set(string))
         container_log_max_line    = optional(number)
         container_log_max_size_mb = optional(number)
-        cpu_cfs_quota_enabled     = optional(bool, true)
+        cpu_cfs_quota_enabled     = optional(bool) # Default: true
         cpu_cfs_quota_period      = optional(string)
         cpu_manager_policy        = optional(string)
         image_gc_high_threshold   = optional(number)
@@ -406,16 +406,16 @@ EOT
       only_critical_addons_enabled = optional(bool)
       orchestrator_version         = optional(string)
       os_disk_size_gb              = optional(number)
-      os_disk_type                 = optional(string, "Managed")
+      os_disk_type                 = optional(string) # Default: "Managed"
       os_sku                       = optional(string)
       pod_subnet_id                = optional(string)
       proximity_placement_group_id = optional(string)
-      scale_down_mode              = optional(string, "Delete")
+      scale_down_mode              = optional(string) # Default: "Delete"
       snapshot_id                  = optional(string)
       tags                         = optional(map(string))
       temporary_name_for_rotation  = optional(string)
-      type                         = optional(string, "VirtualMachineScaleSets")
-      ultra_ssd_enabled            = optional(bool, false)
+      type                         = optional(string) # Default: "VirtualMachineScaleSets"
+      ultra_ssd_enabled            = optional(bool)   # Default: false
       upgrade_settings = optional(object({
         drain_timeout_in_minutes      = optional(number)
         max_surge                     = string
@@ -428,7 +428,7 @@ EOT
       zones            = optional(set(string))
     })
     web_app_routing = optional(object({
-      default_nginx_controller = optional(string, "AnnotationControlled")
+      default_nginx_controller = optional(string) # Default: "AnnotationControlled"
       dns_zone_ids             = list(string)
     }))
     upgrade_override = optional(object({
@@ -436,10 +436,10 @@ EOT
       force_upgrade_enabled = bool
     }))
     storage_profile = optional(object({
-      blob_driver_enabled         = optional(bool, false)
-      disk_driver_enabled         = optional(bool, true)
-      file_driver_enabled         = optional(bool, true)
-      snapshot_controller_enabled = optional(bool, true)
+      blob_driver_enabled         = optional(bool) # Default: false
+      disk_driver_enabled         = optional(bool) # Default: true
+      file_driver_enabled         = optional(bool) # Default: true
+      snapshot_controller_enabled = optional(bool) # Default: true
     }))
     service_principal = optional(object({
       client_id     = string
@@ -463,36 +463,36 @@ EOT
       msi_auth_for_monitoring_enabled = optional(bool)
     }))
     node_provisioning_profile = optional(object({
-      default_node_pools = optional(string, "Auto")
-      mode               = optional(string, "Manual")
+      default_node_pools = optional(string) # Default: "Auto"
+      mode               = optional(string) # Default: "Manual"
     }))
     network_profile = optional(object({
       advanced_networking = optional(object({
-        observability_enabled = optional(bool, false)
-        security_enabled      = optional(bool, false)
+        observability_enabled = optional(bool) # Default: false
+        security_enabled      = optional(bool) # Default: false
       }))
       dns_service_ip = optional(string)
       ip_versions    = optional(list(string))
       load_balancer_profile = optional(object({
-        backend_pool_type           = optional(string, "NodeIPConfiguration")
-        idle_timeout_in_minutes     = optional(number, 30)
+        backend_pool_type           = optional(string) # Default: "NodeIPConfiguration"
+        idle_timeout_in_minutes     = optional(number) # Default: 30
         managed_outbound_ip_count   = optional(number)
         managed_outbound_ipv6_count = optional(number)
         outbound_ip_address_ids     = optional(set(string))
         outbound_ip_prefix_ids      = optional(set(string))
-        outbound_ports_allocated    = optional(number, 0)
+        outbound_ports_allocated    = optional(number) # Default: 0
       }))
-      load_balancer_sku = optional(string, "standard")
+      load_balancer_sku = optional(string) # Default: "standard"
       nat_gateway_profile = optional(object({
-        idle_timeout_in_minutes   = optional(number, 4)
+        idle_timeout_in_minutes   = optional(number) # Default: 4
         managed_outbound_ip_count = optional(number)
       }))
-      network_data_plane  = optional(string, "azure")
+      network_data_plane  = optional(string) # Default: "azure"
       network_mode        = optional(string)
       network_plugin      = string
       network_plugin_mode = optional(string)
       network_policy      = optional(string)
-      outbound_type       = optional(string, "loadBalancer")
+      outbound_type       = optional(string) # Default: "loadBalancer"
       pod_cidr            = optional(string)
       pod_cidrs           = optional(list(string))
       service_cidr        = optional(string)
@@ -547,7 +547,7 @@ EOT
     maintenance_window = optional(object({
       allowed = optional(object({
         day   = string
-        hours = set(string)
+        hours = set(number)
       }))
       not_allowed = optional(object({
         end   = string
@@ -560,12 +560,12 @@ EOT
       user_assigned_identity_id = optional(string)
     }))
     key_vault_secrets_provider = optional(object({
-      secret_rotation_enabled  = optional(bool, false)
-      secret_rotation_interval = optional(string, "2m")
+      secret_rotation_enabled  = optional(bool)   # Default: false
+      secret_rotation_interval = optional(string) # Default: "2m"
     }))
     key_management_service = optional(object({
       key_vault_key_id         = string
-      key_vault_network_access = optional(string, "Public")
+      key_vault_network_access = optional(string) # Default: "Public"
     }))
     ingress_application_gateway = optional(object({
       gateway_id   = optional(string)
@@ -587,7 +587,7 @@ EOT
       sgx_quote_helper_enabled = bool
     }))
     bootstrap_profile = optional(object({
-      artifact_source       = optional(string, "Direct")
+      artifact_source       = optional(string) # Default: "Direct"
       container_registry_id = optional(string)
     }))
     azure_active_directory_role_based_access_control = optional(object({
@@ -596,16 +596,16 @@ EOT
       tenant_id              = optional(string)
     }))
     auto_scaler_profile = optional(object({
-      balance_similar_node_groups                   = optional(bool, false)
-      daemonset_eviction_for_empty_nodes_enabled    = optional(bool, false)
-      daemonset_eviction_for_occupied_nodes_enabled = optional(bool, true)
+      balance_similar_node_groups                   = optional(bool) # Default: false
+      daemonset_eviction_for_empty_nodes_enabled    = optional(bool) # Default: false
+      daemonset_eviction_for_occupied_nodes_enabled = optional(bool) # Default: true
       empty_bulk_delete_max                         = optional(string)
-      expander                                      = optional(string, "random")
-      ignore_daemonsets_utilization_enabled         = optional(bool, false)
+      expander                                      = optional(string) # Default: "random"
+      ignore_daemonsets_utilization_enabled         = optional(bool)   # Default: false
       max_graceful_termination_sec                  = optional(string)
-      max_node_provisioning_time                    = optional(string, "15m")
-      max_unready_nodes                             = optional(number, 3)
-      max_unready_percentage                        = optional(number, 45)
+      max_node_provisioning_time                    = optional(string) # Default: "15m"
+      max_unready_nodes                             = optional(number) # Default: 3
+      max_unready_percentage                        = optional(number) # Default: 45
       new_pod_scale_up_delay                        = optional(string)
       scale_down_delay_after_add                    = optional(string)
       scale_down_delay_after_delete                 = optional(string)
@@ -615,12 +615,12 @@ EOT
       scale_down_utilization_threshold              = optional(string)
       scan_interval                                 = optional(string)
       skip_nodes_with_local_storage                 = optional(bool)
-      skip_nodes_with_system_pods                   = optional(bool, true)
+      skip_nodes_with_system_pods                   = optional(bool) # Default: true
     }))
     api_server_access_profile = optional(object({
       authorized_ip_ranges                = optional(set(string))
       subnet_id                           = optional(string)
-      virtual_network_integration_enabled = optional(bool, false)
+      virtual_network_integration_enabled = optional(bool) # Default: false
     }))
     aci_connector_linux = optional(object({
       subnet_name = string
@@ -632,8 +632,8 @@ EOT
       })
     }))
     workload_autoscaler_profile = optional(object({
-      keda_enabled                    = optional(bool, false)
-      vertical_pod_autoscaler_enabled = optional(bool, false)
+      keda_enabled                    = optional(bool) # Default: false
+      vertical_pod_autoscaler_enabled = optional(bool) # Default: false
     }))
   }))
 }
