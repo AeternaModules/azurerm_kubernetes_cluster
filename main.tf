@@ -110,7 +110,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_clusters" {
       for_each = each.value.default_node_pool.node_network_profile != null ? [each.value.default_node_pool.node_network_profile] : []
       content {
         dynamic "allowed_host_ports" {
-          for_each = node_network_profile.value.allowed_host_ports != null ? [node_network_profile.value.allowed_host_ports] : []
+          for_each = node_network_profile.value.allowed_host_ports != null ? node_network_profile.value.allowed_host_ports : []
           content {
             port_end   = allowed_host_ports.value.port_end
             port_start = allowed_host_ports.value.port_start
@@ -284,14 +284,14 @@ resource "azurerm_kubernetes_cluster" "kubernetes_clusters" {
     for_each = each.value.maintenance_window != null ? [each.value.maintenance_window] : []
     content {
       dynamic "allowed" {
-        for_each = maintenance_window.value.allowed != null ? [maintenance_window.value.allowed] : []
+        for_each = maintenance_window.value.allowed != null ? maintenance_window.value.allowed : []
         content {
           day   = allowed.value.day
           hours = allowed.value.hours
         }
       }
       dynamic "not_allowed" {
-        for_each = maintenance_window.value.not_allowed != null ? [maintenance_window.value.not_allowed] : []
+        for_each = maintenance_window.value.not_allowed != null ? maintenance_window.value.not_allowed : []
         content {
           end   = not_allowed.value.end
           start = not_allowed.value.start
@@ -309,7 +309,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_clusters" {
       frequency    = maintenance_window_auto_upgrade.value.frequency
       interval     = maintenance_window_auto_upgrade.value.interval
       dynamic "not_allowed" {
-        for_each = maintenance_window_auto_upgrade.value.not_allowed != null ? [maintenance_window_auto_upgrade.value.not_allowed] : []
+        for_each = maintenance_window_auto_upgrade.value.not_allowed != null ? maintenance_window_auto_upgrade.value.not_allowed : []
         content {
           end   = not_allowed.value.end
           start = not_allowed.value.start
@@ -331,7 +331,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_clusters" {
       frequency    = maintenance_window_node_os.value.frequency
       interval     = maintenance_window_node_os.value.interval
       dynamic "not_allowed" {
-        for_each = maintenance_window_node_os.value.not_allowed != null ? [maintenance_window_node_os.value.not_allowed] : []
+        for_each = maintenance_window_node_os.value.not_allowed != null ? maintenance_window_node_os.value.not_allowed : []
         content {
           end   = not_allowed.value.end
           start = not_allowed.value.start
