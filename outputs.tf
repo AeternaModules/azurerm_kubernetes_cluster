@@ -1,3 +1,7 @@
+output "kubernetes_clusters_id" {
+  description = "Map of id values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.id }
+}
 output "kubernetes_clusters_aci_connector_linux" {
   description = "Map of aci_connector_linux values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
   value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.aci_connector_linux }
