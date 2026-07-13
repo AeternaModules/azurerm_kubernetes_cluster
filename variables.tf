@@ -638,312 +638,326 @@ EOT
       vertical_pod_autoscaler_enabled = optional(bool)
     }))
   }))
-  # --- Unconfirmed validation candidates, derived from azurerm_kubernetes_cluster's provider source ---
-  # Not auto-enabled: either a bespoke provider validator we can't safely translate,
-  # or a path that crosses a list-typed block (needs its own for_each wrapping).
-  # Review, translate into a real validation{} block above, and delete once confirmed.
-  # path: name
-  #   condition: length(value) > 0
-  #   message:   must not be empty
-  # path: location
-  #   source:    location.EnhancedValidate: no recognizable `if ... { errors = append(...) }` pattern - read it by hand
-  # path: resource_group_name
-  #   condition: length(value) <= 90
-  #   message:   [from resourcegroups.ValidateName: invalid when len(value) > 90]
-  #   source:    [from resourcegroups.ValidateName: invalid when len(value) > 90]
-  # path: resource_group_name
-  #   condition: !endswith(value, ".")
-  #   message:   [from resourcegroups.ValidateName: must not end with "."]
-  #   source:    [from resourcegroups.ValidateName: must not end with "."]
-  # path: resource_group_name
-  #   condition: length(value) != 0
-  #   message:   [from resourcegroups.ValidateName: invalid when len(value) == 0]
-  #   source:    [from resourcegroups.ValidateName: invalid when len(value) == 0]
-  # path: resource_group_name
-  #   source:    [from resourcegroups.ValidateName] !matched
-  # path: api_server_access_profile.authorized_ip_ranges[*]
-  #   source:    [from validate.CIDR] re != nil && !re.MatchString(cidr)
-  # path: api_server_access_profile.subnet_id
-  #   source:    [from commonids.ValidateSubnetID] !ok
-  # path: api_server_access_profile.subnet_id
-  #   source:    [from commonids.ValidateSubnetID] err != nil
-  # path: automatic_upgrade_channel
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: auto_scaler_profile.expander
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: auto_scaler_profile.max_node_provisioning_time
-  #   source:    [from containerValidate.Duration] err != nil
-  # path: auto_scaler_profile.max_node_provisioning_time
-  #   source:    [from containerValidate.Duration] duration < 0
-  # path: auto_scaler_profile.max_unready_nodes
-  #   condition: value >= 0
-  #   message:   must be at least 0
-  # path: auto_scaler_profile.max_unready_percentage
-  #   source:    validation.FloatBetween(...) - no translation rule yet, add one
-  # path: auto_scaler_profile.new_pod_scale_up_delay
-  #   source:    [from containerValidate.Duration] err != nil
-  # path: auto_scaler_profile.new_pod_scale_up_delay
-  #   source:    [from containerValidate.Duration] duration < 0
-  # path: auto_scaler_profile.scan_interval
-  #   source:    [from containerValidate.Duration] err != nil
-  # path: auto_scaler_profile.scan_interval
-  #   source:    [from containerValidate.Duration] duration < 0
-  # path: auto_scaler_profile.scale_down_delay_after_add
-  #   source:    [from containerValidate.Duration] err != nil
-  # path: auto_scaler_profile.scale_down_delay_after_add
-  #   source:    [from containerValidate.Duration] duration < 0
-  # path: auto_scaler_profile.scale_down_delay_after_delete
-  #   source:    [from containerValidate.Duration] err != nil
-  # path: auto_scaler_profile.scale_down_delay_after_delete
-  #   source:    [from containerValidate.Duration] duration < 0
-  # path: auto_scaler_profile.scale_down_delay_after_failure
-  #   source:    [from containerValidate.Duration] err != nil
-  # path: auto_scaler_profile.scale_down_delay_after_failure
-  #   source:    [from containerValidate.Duration] duration < 0
-  # path: auto_scaler_profile.scale_down_unneeded
-  #   source:    [from containerValidate.Duration] err != nil
-  # path: auto_scaler_profile.scale_down_unneeded
-  #   source:    [from containerValidate.Duration] duration < 0
-  # path: auto_scaler_profile.scale_down_unready
-  #   source:    [from containerValidate.Duration] err != nil
-  # path: auto_scaler_profile.scale_down_unready
-  #   source:    [from containerValidate.Duration] duration < 0
-  # path: azure_active_directory_role_based_access_control.tenant_id
-  #   source:    validation.Any(...) - no translation rule yet, add one
-  # path: azure_active_directory_role_based_access_control.admin_group_object_ids[*]
-  #   condition: can(regex("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$", value))
-  #   message:   must be a valid UUID
-  # path: custom_ca_trust_certificates_base64[*]
-  #   source:    validation.StringIsBase64(...) - no translation rule yet, add one
-  # path: disk_encryption_set_id
-  #   source:    [from computeValidate.DiskEncryptionSetID] !ok
-  # path: disk_encryption_set_id
-  #   source:    [from computeValidate.DiskEncryptionSetID] err != nil
-  # path: dns_prefix
-  #   condition: length(value) >= 2
-  #   message:   [from containerValidate.KubernetesDNSPrefix: invalid when len(value) < 2]
-  #   source:    [from containerValidate.KubernetesDNSPrefix: invalid when len(value) < 2]
-  # path: dns_prefix
-  #   source:    [from containerValidate.KubernetesDNSPrefix] re != nil && !re.MatchString(dnsPrefix)
-  # path: dns_prefix
-  #   source:    [from containerValidate.KubernetesDNSPrefix] re != nil && !re.MatchString(dnsPrefix)
-  # path: edge_zone
-  #   condition: length(value) > 0
-  #   message:   must not be empty
-  # path: identity.type
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: identity.identity_ids[*]
-  #   source:    [from commonids.ValidateUserAssignedIdentityID] !ok
-  # path: identity.identity_ids[*]
-  #   source:    [from commonids.ValidateUserAssignedIdentityID] err != nil
-  # path: image_cleaner_interval_hours
-  #   condition: value >= 24 && value <= 2160
-  #   message:   must be between 24 and 2160
-  # path: web_app_routing.dns_zone_ids[*]
-  #   source:    validation.Any(...) - no translation rule yet, add one
-  # path: web_app_routing.default_nginx_controller
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: kubelet_identity.client_id
-  #   condition: length(value) > 0
-  #   message:   must not be empty
-  # path: kubelet_identity.object_id
-  #   condition: length(value) > 0
-  #   message:   must not be empty
-  # path: kubelet_identity.user_assigned_identity_id
-  #   source:    [from commonids.ValidateUserAssignedIdentityID] !ok
-  # path: kubelet_identity.user_assigned_identity_id
-  #   source:    [from commonids.ValidateUserAssignedIdentityID] err != nil
-  # path: kubernetes_version
-  #   condition: length(value) > 0
-  #   message:   must not be empty
-  # path: linux_profile.admin_username
-  #   source:    [from containerValidate.KubernetesAdminUserName] re != nil && !re.MatchString(adminUserName)
-  # path: linux_profile.ssh_key.key_data
-  #   condition: length(value) > 0
-  #   message:   must not be empty
-  # path: bootstrap_profile.artifact_source
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: bootstrap_profile.container_registry_id
-  #   source:    [from registries.ValidateRegistryID] !ok
-  # path: bootstrap_profile.container_registry_id
-  #   source:    [from registries.ValidateRegistryID] err != nil
-  # path: maintenance_window.allowed.day
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: maintenance_window.allowed.hours[*]
-  #   condition: value >= 0 && value <= 23
-  #   message:   must be between 0 and 23
-  # path: maintenance_window.not_allowed.end
-  #   source:    validation.IsRFC3339Time(...) - no translation rule yet, add one
-  # path: maintenance_window.not_allowed.start
-  #   source:    validation.IsRFC3339Time(...) - no translation rule yet, add one
-  # path: maintenance_window_auto_upgrade.frequency
-  #   condition: contains(["Daily", "Weekly", "RelativeMonthly", "AbsoluteMonthly"], value)
-  #   message:   must be one of: Daily, Weekly, RelativeMonthly, AbsoluteMonthly
-  # path: maintenance_window_auto_upgrade.day_of_week
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: maintenance_window_auto_upgrade.duration
-  #   condition: value >= 4 && value <= 24
-  #   message:   must be between 4 and 24
-  # path: maintenance_window_auto_upgrade.week_index
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: maintenance_window_auto_upgrade.day_of_month
-  #   condition: value >= 0 && value <= 31
-  #   message:   must be between 0 and 31
-  # path: maintenance_window_auto_upgrade.not_allowed.end
-  #   source:    validation.IsRFC3339Time(...) - no translation rule yet, add one
-  # path: maintenance_window_auto_upgrade.not_allowed.start
-  #   source:    validation.IsRFC3339Time(...) - no translation rule yet, add one
-  # path: maintenance_window_node_os.frequency
-  #   condition: contains(["Weekly", "RelativeMonthly", "AbsoluteMonthly", "Daily"], value)
-  #   message:   must be one of: Weekly, RelativeMonthly, AbsoluteMonthly, Daily
-  # path: maintenance_window_node_os.day_of_week
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: maintenance_window_node_os.duration
-  #   condition: value >= 4 && value <= 24
-  #   message:   must be between 4 and 24
-  # path: maintenance_window_node_os.week_index
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: maintenance_window_node_os.day_of_month
-  #   condition: value >= 0 && value <= 31
-  #   message:   must be between 0 and 31
-  # path: maintenance_window_node_os.start_date
-  #   source:    validation.IsRFC3339Time(...) - no translation rule yet, add one
-  # path: maintenance_window_node_os.not_allowed.end
-  #   source:    validation.IsRFC3339Time(...) - no translation rule yet, add one
-  # path: maintenance_window_node_os.not_allowed.start
-  #   source:    validation.IsRFC3339Time(...) - no translation rule yet, add one
-  # path: monitor_metrics.annotations_allowed
-  #   condition: length(value) > 0
-  #   message:   must not be empty
-  # path: monitor_metrics.labels_allowed
-  #   condition: length(value) > 0
-  #   message:   must not be empty
-  # path: key_management_service.key_vault_key_id
-  #   source:    [from keyvault.ValidateNestedItemID] !ok
-  # path: key_management_service.key_vault_key_id
-  #   source:    [from keyvault.ValidateNestedItemID] err != nil
-  # path: key_management_service.key_vault_network_access
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: microsoft_defender.log_analytics_workspace_id
-  #   source:    [from workspaces.ValidateWorkspaceID] !ok
-  # path: microsoft_defender.log_analytics_workspace_id
-  #   source:    [from workspaces.ValidateWorkspaceID] err != nil
-  # path: network_profile.network_plugin
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: network_profile.network_mode
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: network_profile.network_policy
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: network_profile.dns_service_ip
-  #   source:    [from validate.IPv4Address] !ok
-  # path: network_profile.dns_service_ip
-  #   source:    [from validate.IPv4Address] four == nil
-  # path: network_profile.network_data_plane
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: network_profile.network_plugin_mode
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: network_profile.pod_cidr
-  #   source:    [from validate.CIDR] re != nil && !re.MatchString(cidr)
-  # path: network_profile.pod_cidrs[*]
-  #   condition: length(value) > 0
-  #   message:   must not be empty
-  # path: network_profile.service_cidr
-  #   source:    [from validate.CIDR] re != nil && !re.MatchString(cidr)
-  # path: network_profile.service_cidrs[*]
-  #   condition: length(value) > 0
-  #   message:   must not be empty
-  # path: network_profile.load_balancer_sku
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: network_profile.outbound_type
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: network_profile.load_balancer_profile.outbound_ports_allocated
-  #   condition: value >= 0 && value <= 64000
-  #   message:   must be between 0 and 64000
-  # path: network_profile.load_balancer_profile.idle_timeout_in_minutes
-  #   condition: value >= 4 && value <= 100
-  #   message:   must be between 4 and 100
-  # path: network_profile.load_balancer_profile.managed_outbound_ip_count
-  #   condition: value >= 1 && value <= 100
-  #   message:   must be between 1 and 100
-  # path: network_profile.load_balancer_profile.managed_outbound_ipv6_count
-  #   condition: value >= 1 && value <= 100
-  #   message:   must be between 1 and 100
-  # path: network_profile.load_balancer_profile.outbound_ip_prefix_ids[*]
-  #   source:    [from azure.ValidateResourceID] !ok
-  # path: network_profile.load_balancer_profile.outbound_ip_prefix_ids[*]
-  #   source:    [from azure.ValidateResourceID] err != nil
-  # path: network_profile.load_balancer_profile.outbound_ip_address_ids[*]
-  #   source:    [from azure.ValidateResourceID] !ok
-  # path: network_profile.load_balancer_profile.outbound_ip_address_ids[*]
-  #   source:    [from azure.ValidateResourceID] err != nil
-  # path: network_profile.load_balancer_profile.backend_pool_type
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: network_profile.nat_gateway_profile.idle_timeout_in_minutes
-  #   condition: value >= 4 && value <= 120
-  #   message:   must be between 4 and 120
-  # path: network_profile.nat_gateway_profile.managed_outbound_ip_count
-  #   condition: value >= 1 && value <= 100
-  #   message:   must be between 1 and 100
-  # path: network_profile.ip_versions[*]
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: node_os_upgrade_channel
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: private_dns_zone_id
-  #   source:    validation.Any(...) - no translation rule yet, add one
-  # path: service_mesh_profile.mode
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: service_mesh_profile.certificate_authority.key_vault_id
-  #   source:    [from validationFunctionForResourceID] !ok
-  # path: service_mesh_profile.certificate_authority.key_vault_id
-  #   source:    [from validationFunctionForResourceID] err != nil
-  # path: service_mesh_profile.certificate_authority.root_cert_object_name
-  #   condition: length(value) > 0
-  #   message:   must not be empty
-  # path: service_mesh_profile.certificate_authority.cert_chain_object_name
-  #   condition: length(value) > 0
-  #   message:   must not be empty
-  # path: service_mesh_profile.certificate_authority.cert_object_name
-  #   condition: length(value) > 0
-  #   message:   must not be empty
-  # path: service_mesh_profile.certificate_authority.key_object_name
-  #   condition: length(value) > 0
-  #   message:   must not be empty
-  # path: service_mesh_profile.revisions[*]
-  #   condition: length(value) > 0
-  #   message:   must not be empty
-  # path: service_principal.client_id
-  #   source:    containerValidate.ClientID: no recognizable `if ... { errors = append(...) }` pattern - read it by hand
-  # path: service_principal.client_secret
-  #   condition: length(value) > 0
-  #   message:   must not be empty
-  # path: sku_tier
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: support_plan
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: tags
-  #   condition: length(value) <= 50
-  #   message:   [from tags.Validate: invalid when len(value) > 50]
-  #   source:    [from tags.Validate: invalid when len(value) > 50]
-  # path: tags
-  #   condition: length(value) <= 512
-  #   message:   [from tags.Validate: invalid when len(value) > 512]
-  #   source:    [from tags.Validate: invalid when len(value) > 512]
-  # path: tags
-  #   source:    [from tags.Validate] err != nil
-  # path: tags
-  #   condition: length(value) <= 256
-  #   message:   [from tags.Validate: invalid when len(value) > 256]
-  #   source:    [from tags.Validate: invalid when len(value) > 256]
-  # path: upgrade_override.effective_until
-  #   source:    validation.IsRFC3339Time(...) - no translation rule yet, add one
-  # path: windows_profile.admin_password
-  #   condition: length(value) >= 8 && length(value) <= 123
-  #   message:   must be between 8 and 123 characters
-  # path: windows_profile.license
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: node_provisioning_profile.mode
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
-  # path: node_provisioning_profile.default_node_pools
-  #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        length(v.name) > 0
+      )
+    ])
+    error_message = "must not be empty"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        length(v.resource_group_name) <= 90
+      )
+    ])
+    error_message = "[from resourcegroups.ValidateName: invalid when len(value) > 90]"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        !endswith(v.resource_group_name, ".")
+      )
+    ])
+    error_message = "[from resourcegroups.ValidateName: must not end with \".\"]"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        length(v.resource_group_name) != 0
+      )
+    ])
+    error_message = "[from resourcegroups.ValidateName: invalid when len(value) == 0]"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.auto_scaler_profile == null || (v.auto_scaler_profile.max_unready_nodes == null || (v.auto_scaler_profile.max_unready_nodes >= 0))
+      )
+    ])
+    error_message = "must be at least 0"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.auto_scaler_profile == null || (v.auto_scaler_profile.max_unready_percentage == null || (v.auto_scaler_profile.max_unready_percentage >= 0 && v.auto_scaler_profile.max_unready_percentage <= 100))
+      )
+    ])
+    error_message = "must be between 0 and 100"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.azure_active_directory_role_based_access_control == null || (v.azure_active_directory_role_based_access_control.admin_group_object_ids == null || (alltrue([for x in v.azure_active_directory_role_based_access_control.admin_group_object_ids : can(regex("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$", x))])))
+      )
+    ])
+    error_message = "must be a valid UUID"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.custom_ca_trust_certificates_base64 == null || (alltrue([for x in v.custom_ca_trust_certificates_base64 : can(base64decode(x))]))
+      )
+    ])
+    error_message = "must be valid base64"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.dns_prefix == null || (length(v.dns_prefix) >= 2)
+      )
+    ])
+    error_message = "[from containerValidate.KubernetesDNSPrefix: invalid when len(value) < 2]"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.edge_zone == null || (length(v.edge_zone) > 0)
+      )
+    ])
+    error_message = "must not be empty"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.image_cleaner_interval_hours == null || (v.image_cleaner_interval_hours >= 24 && v.image_cleaner_interval_hours <= 2160)
+      )
+    ])
+    error_message = "must be between 24 and 2160"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.kubelet_identity == null || (v.kubelet_identity.client_id == null || (length(v.kubelet_identity.client_id) > 0))
+      )
+    ])
+    error_message = "must not be empty"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.kubelet_identity == null || (v.kubelet_identity.object_id == null || (length(v.kubelet_identity.object_id) > 0))
+      )
+    ])
+    error_message = "must not be empty"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.kubernetes_version == null || (length(v.kubernetes_version) > 0)
+      )
+    ])
+    error_message = "must not be empty"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.linux_profile == null || (length(v.linux_profile.ssh_key.key_data) > 0)
+      )
+    ])
+    error_message = "must not be empty"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.maintenance_window == null || (v.maintenance_window.allowed == null || alltrue([for item in v.maintenance_window.allowed : (alltrue([for x in item.hours : x >= 0 && x <= 23]))]))
+      )
+    ])
+    error_message = "must be between 0 and 23"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.maintenance_window_auto_upgrade == null || (contains(["Daily", "Weekly", "RelativeMonthly", "AbsoluteMonthly"], v.maintenance_window_auto_upgrade.frequency))
+      )
+    ])
+    error_message = "must be one of: Daily, Weekly, RelativeMonthly, AbsoluteMonthly"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.maintenance_window_auto_upgrade == null || (v.maintenance_window_auto_upgrade.duration >= 4 && v.maintenance_window_auto_upgrade.duration <= 24)
+      )
+    ])
+    error_message = "must be between 4 and 24"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.maintenance_window_auto_upgrade == null || (v.maintenance_window_auto_upgrade.day_of_month == null || (v.maintenance_window_auto_upgrade.day_of_month >= 0 && v.maintenance_window_auto_upgrade.day_of_month <= 31))
+      )
+    ])
+    error_message = "must be between 0 and 31"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.maintenance_window_node_os == null || (contains(["Weekly", "RelativeMonthly", "AbsoluteMonthly", "Daily"], v.maintenance_window_node_os.frequency))
+      )
+    ])
+    error_message = "must be one of: Weekly, RelativeMonthly, AbsoluteMonthly, Daily"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.maintenance_window_node_os == null || (v.maintenance_window_node_os.duration >= 4 && v.maintenance_window_node_os.duration <= 24)
+      )
+    ])
+    error_message = "must be between 4 and 24"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.maintenance_window_node_os == null || (v.maintenance_window_node_os.day_of_month == null || (v.maintenance_window_node_os.day_of_month >= 0 && v.maintenance_window_node_os.day_of_month <= 31))
+      )
+    ])
+    error_message = "must be between 0 and 31"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.monitor_metrics == null || (v.monitor_metrics.annotations_allowed == null || (length(v.monitor_metrics.annotations_allowed) > 0))
+      )
+    ])
+    error_message = "must not be empty"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.monitor_metrics == null || (v.monitor_metrics.labels_allowed == null || (length(v.monitor_metrics.labels_allowed) > 0))
+      )
+    ])
+    error_message = "must not be empty"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.network_profile == null || (v.network_profile.pod_cidrs == null || (alltrue([for x in v.network_profile.pod_cidrs : length(x) > 0])))
+      )
+    ])
+    error_message = "must not be empty"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.network_profile == null || (v.network_profile.service_cidrs == null || (alltrue([for x in v.network_profile.service_cidrs : length(x) > 0])))
+      )
+    ])
+    error_message = "must not be empty"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.network_profile == null || (v.network_profile.load_balancer_profile == null || (v.network_profile.load_balancer_profile.outbound_ports_allocated == null || (v.network_profile.load_balancer_profile.outbound_ports_allocated >= 0 && v.network_profile.load_balancer_profile.outbound_ports_allocated <= 64000)))
+      )
+    ])
+    error_message = "must be between 0 and 64000"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.network_profile == null || (v.network_profile.load_balancer_profile == null || (v.network_profile.load_balancer_profile.idle_timeout_in_minutes == null || (v.network_profile.load_balancer_profile.idle_timeout_in_minutes >= 4 && v.network_profile.load_balancer_profile.idle_timeout_in_minutes <= 100)))
+      )
+    ])
+    error_message = "must be between 4 and 100"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.network_profile == null || (v.network_profile.load_balancer_profile == null || (v.network_profile.load_balancer_profile.managed_outbound_ip_count == null || (v.network_profile.load_balancer_profile.managed_outbound_ip_count >= 1 && v.network_profile.load_balancer_profile.managed_outbound_ip_count <= 100)))
+      )
+    ])
+    error_message = "must be between 1 and 100"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.network_profile == null || (v.network_profile.load_balancer_profile == null || (v.network_profile.load_balancer_profile.managed_outbound_ipv6_count == null || (v.network_profile.load_balancer_profile.managed_outbound_ipv6_count >= 1 && v.network_profile.load_balancer_profile.managed_outbound_ipv6_count <= 100)))
+      )
+    ])
+    error_message = "must be between 1 and 100"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.network_profile == null || (v.network_profile.nat_gateway_profile == null || (v.network_profile.nat_gateway_profile.idle_timeout_in_minutes == null || (v.network_profile.nat_gateway_profile.idle_timeout_in_minutes >= 4 && v.network_profile.nat_gateway_profile.idle_timeout_in_minutes <= 120)))
+      )
+    ])
+    error_message = "must be between 4 and 120"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.network_profile == null || (v.network_profile.nat_gateway_profile == null || (v.network_profile.nat_gateway_profile.managed_outbound_ip_count == null || (v.network_profile.nat_gateway_profile.managed_outbound_ip_count >= 1 && v.network_profile.nat_gateway_profile.managed_outbound_ip_count <= 100)))
+      )
+    ])
+    error_message = "must be between 1 and 100"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.service_mesh_profile == null || (v.service_mesh_profile.certificate_authority == null || (length(v.service_mesh_profile.certificate_authority.root_cert_object_name) > 0))
+      )
+    ])
+    error_message = "must not be empty"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.service_mesh_profile == null || (v.service_mesh_profile.certificate_authority == null || (length(v.service_mesh_profile.certificate_authority.cert_chain_object_name) > 0))
+      )
+    ])
+    error_message = "must not be empty"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.service_mesh_profile == null || (v.service_mesh_profile.certificate_authority == null || (length(v.service_mesh_profile.certificate_authority.cert_object_name) > 0))
+      )
+    ])
+    error_message = "must not be empty"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.service_mesh_profile == null || (v.service_mesh_profile.certificate_authority == null || (length(v.service_mesh_profile.certificate_authority.key_object_name) > 0))
+      )
+    ])
+    error_message = "must not be empty"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.service_mesh_profile == null || (alltrue([for x in v.service_mesh_profile.revisions : length(x) > 0]))
+      )
+    ])
+    error_message = "must not be empty"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.service_principal == null || (length(v.service_principal.client_secret) > 0)
+      )
+    ])
+    error_message = "must not be empty"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.tags == null || (length(v.tags) <= 50)
+      )
+    ])
+    error_message = "[from tags.Validate: invalid when len(value) > 50]"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.kubernetes_clusters : (
+        v.windows_profile == null || (length(v.windows_profile.admin_password) >= 8 && length(v.windows_profile.admin_password) <= 123)
+      )
+    ])
+    error_message = "must be between 8 and 123 characters"
+  }
+  # Note: 88 additional provider-side validators are enforced at apply time but not mirrored as validation{} blocks here (bespoke or non-mechanically-translatable).
 }
 
