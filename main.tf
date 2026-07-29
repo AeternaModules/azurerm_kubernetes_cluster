@@ -45,7 +45,6 @@ resource "azurerm_kubernetes_cluster" "kubernetes_clusters" {
       content {
         allowed_unsafe_sysctls    = kubelet_config.value.allowed_unsafe_sysctls
         container_log_max_files   = kubelet_config.value.container_log_max_files
-        container_log_max_line    = kubelet_config.value.container_log_max_line
         container_log_max_size_mb = kubelet_config.value.container_log_max_size_mb
         cpu_cfs_quota_enabled     = kubelet_config.value.cpu_cfs_quota_enabled
         cpu_cfs_quota_period      = kubelet_config.value.cpu_cfs_quota_period
@@ -95,9 +94,8 @@ resource "azurerm_kubernetes_cluster" "kubernetes_clusters" {
             vm_vfs_cache_pressure              = sysctl_config.value.vm_vfs_cache_pressure
           }
         }
-        transparent_huge_page         = linux_os_config.value.transparent_huge_page
-        transparent_huge_page_defrag  = linux_os_config.value.transparent_huge_page_defrag
-        transparent_huge_page_enabled = linux_os_config.value.transparent_huge_page_enabled
+        transparent_huge_page        = linux_os_config.value.transparent_huge_page
+        transparent_huge_page_defrag = linux_os_config.value.transparent_huge_page_defrag
       }
     }
     max_count   = each.value.default_node_pool.max_count
@@ -149,6 +147,11 @@ resource "azurerm_kubernetes_cluster" "kubernetes_clusters" {
     vnet_subnet_id   = each.value.default_node_pool.vnet_subnet_id
     workload_runtime = each.value.default_node_pool.workload_runtime
     zones            = each.value.default_node_pool.zones
+  }
+
+  node_provisioning_profile {
+    default_node_pools = each.value.node_provisioning_profile.default_node_pools
+    mode               = each.value.node_provisioning_profile.mode
   }
 
   dynamic "aci_connector_linux" {
@@ -401,14 +404,6 @@ resource "azurerm_kubernetes_cluster" "kubernetes_clusters" {
       pod_cidrs           = network_profile.value.pod_cidrs
       service_cidr        = network_profile.value.service_cidr
       service_cidrs       = network_profile.value.service_cidrs
-    }
-  }
-
-  dynamic "node_provisioning_profile" {
-    for_each = each.value.node_provisioning_profile != null ? [each.value.node_provisioning_profile] : []
-    content {
-      default_node_pools = node_provisioning_profile.value.default_node_pools
-      mode               = node_provisioning_profile.value.mode
     }
   }
 

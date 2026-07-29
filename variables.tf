@@ -16,7 +16,6 @@ Required:
         - kubelet_config (optional, block):
             - allowed_unsafe_sysctls (optional)
             - container_log_max_files (optional)
-            - container_log_max_line (optional)
             - container_log_max_size_mb (optional)
             - cpu_cfs_quota_enabled (optional)
             - cpu_cfs_quota_period (optional)
@@ -60,7 +59,6 @@ Required:
                 - vm_vfs_cache_pressure (optional)
             - transparent_huge_page (optional)
             - transparent_huge_page_defrag (optional)
-            - transparent_huge_page_enabled (optional)
         - max_count (optional)
         - max_pods (optional)
         - min_count (optional)
@@ -98,6 +96,9 @@ Required:
         - vnet_subnet_id (optional)
         - workload_runtime (optional)
         - zones (optional)
+    - node_provisioning_profile (block):
+        - default_node_pools (optional)
+        - mode (optional)
 Optional:
     - ai_toolchain_operator_enabled
     - automatic_upgrade_channel
@@ -255,9 +256,6 @@ Optional:
         - pod_cidrs (optional)
         - service_cidr (optional)
         - service_cidrs (optional)
-    - node_provisioning_profile (block):
-        - default_node_pools (optional)
-        - mode (optional)
     - oms_agent (block):
         - log_analytics_workspace_id (required)
         - msi_auth_for_monitoring_enabled (optional)
@@ -340,7 +338,6 @@ EOT
       kubelet_config = optional(object({
         allowed_unsafe_sysctls    = optional(set(string))
         container_log_max_files   = optional(number)
-        container_log_max_line    = optional(number)
         container_log_max_size_mb = optional(number)
         cpu_cfs_quota_enabled     = optional(bool)
         cpu_cfs_quota_period      = optional(string)
@@ -384,9 +381,8 @@ EOT
           vm_swappiness                      = optional(number)
           vm_vfs_cache_pressure              = optional(number)
         }))
-        transparent_huge_page         = optional(string)
-        transparent_huge_page_defrag  = optional(string)
-        transparent_huge_page_enabled = optional(string)
+        transparent_huge_page        = optional(string)
+        transparent_huge_page_defrag = optional(string)
       }))
       max_count   = optional(number)
       max_pods    = optional(number)
@@ -429,6 +425,10 @@ EOT
       workload_runtime = optional(string)
       zones            = optional(set(string))
     })
+    node_provisioning_profile = object({
+      default_node_pools = optional(string)
+      mode               = optional(string)
+    })
     web_app_routing = optional(object({
       default_nginx_controller = optional(string)
       dns_zone_ids             = list(string)
@@ -463,10 +463,6 @@ EOT
     oms_agent = optional(object({
       log_analytics_workspace_id      = string
       msi_auth_for_monitoring_enabled = optional(bool)
-    }))
-    node_provisioning_profile = optional(object({
-      default_node_pools = optional(string)
-      mode               = optional(string)
     }))
     network_profile = optional(object({
       advanced_networking = optional(object({
@@ -537,15 +533,6 @@ EOT
       utc_offset = optional(string)
       week_index = optional(string)
     }))
-    windows_profile = optional(object({
-      admin_password = string
-      admin_username = string
-      gmsa = optional(object({
-        dns_server  = string
-        root_domain = string
-      }))
-      license = optional(string)
-    }))
     maintenance_window = optional(object({
       allowed = optional(list(object({
         day   = string
@@ -555,6 +542,12 @@ EOT
         end   = string
         start = string
       })))
+    }))
+    linux_profile = optional(object({
+      admin_username = string
+      ssh_key = object({
+        key_data = string
+      })
     }))
     kubelet_identity = optional(object({
       client_id                 = optional(string)
@@ -627,11 +620,14 @@ EOT
     aci_connector_linux = optional(object({
       subnet_name = string
     }))
-    linux_profile = optional(object({
+    windows_profile = optional(object({
+      admin_password = string
       admin_username = string
-      ssh_key = object({
-        key_data = string
-      })
+      gmsa = optional(object({
+        dns_server  = string
+        root_domain = string
+      }))
+      license = optional(string)
     }))
     workload_autoscaler_profile = optional(object({
       keda_enabled                    = optional(bool)
