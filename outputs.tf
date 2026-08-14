@@ -4,7 +4,7 @@ output "kubernetes_clusters_id" {
 }
 output "kubernetes_clusters_aci_connector_linux" {
   description = "Map of aci_connector_linux values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.aci_connector_linux if v.aci_connector_linux != null && length(v.aci_connector_linux) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.aci_connector_linux) if v.aci_connector_linux != null && length(v.aci_connector_linux) > 0 }
 }
 output "kubernetes_clusters_ai_toolchain_operator_enabled" {
   description = "Map of ai_toolchain_operator_enabled values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
@@ -12,11 +12,11 @@ output "kubernetes_clusters_ai_toolchain_operator_enabled" {
 }
 output "kubernetes_clusters_api_server_access_profile" {
   description = "Map of api_server_access_profile values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.api_server_access_profile if v.api_server_access_profile != null && length(v.api_server_access_profile) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.api_server_access_profile) if v.api_server_access_profile != null && length(v.api_server_access_profile) > 0 }
 }
 output "kubernetes_clusters_auto_scaler_profile" {
   description = "Map of auto_scaler_profile values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.auto_scaler_profile if v.auto_scaler_profile != null && length(v.auto_scaler_profile) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.auto_scaler_profile) if v.auto_scaler_profile != null && length(v.auto_scaler_profile) > 0 }
 }
 output "kubernetes_clusters_automatic_upgrade_channel" {
   description = "Map of automatic_upgrade_channel values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
@@ -24,7 +24,7 @@ output "kubernetes_clusters_automatic_upgrade_channel" {
 }
 output "kubernetes_clusters_azure_active_directory_role_based_access_control" {
   description = "Map of azure_active_directory_role_based_access_control values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.azure_active_directory_role_based_access_control if v.azure_active_directory_role_based_access_control != null && length(v.azure_active_directory_role_based_access_control) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.azure_active_directory_role_based_access_control) if v.azure_active_directory_role_based_access_control != null && length(v.azure_active_directory_role_based_access_control) > 0 }
 }
 output "kubernetes_clusters_azure_policy_enabled" {
   description = "Map of azure_policy_enabled values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
@@ -32,11 +32,11 @@ output "kubernetes_clusters_azure_policy_enabled" {
 }
 output "kubernetes_clusters_bootstrap_profile" {
   description = "Map of bootstrap_profile values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.bootstrap_profile if v.bootstrap_profile != null && length(v.bootstrap_profile) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.bootstrap_profile) if v.bootstrap_profile != null && length(v.bootstrap_profile) > 0 }
 }
 output "kubernetes_clusters_confidential_computing" {
   description = "Map of confidential_computing values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.confidential_computing if v.confidential_computing != null && length(v.confidential_computing) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.confidential_computing) if v.confidential_computing != null && length(v.confidential_computing) > 0 }
 }
 output "kubernetes_clusters_cost_analysis_enabled" {
   description = "Map of cost_analysis_enabled values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
@@ -52,7 +52,7 @@ output "kubernetes_clusters_custom_ca_trust_certificates_base64" {
 }
 output "kubernetes_clusters_default_node_pool" {
   description = "Map of default_node_pool values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.default_node_pool if v.default_node_pool != null && length(v.default_node_pool) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.default_node_pool) if v.default_node_pool != null && length(v.default_node_pool) > 0 }
 }
 output "kubernetes_clusters_disk_encryption_set_id" {
   description = "Map of disk_encryption_set_id values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
@@ -84,12 +84,12 @@ output "kubernetes_clusters_http_application_routing_zone_name" {
 }
 output "kubernetes_clusters_http_proxy_config" {
   description = "Map of http_proxy_config values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.http_proxy_config if v.http_proxy_config != null && length(v.http_proxy_config) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.http_proxy_config) if v.http_proxy_config != null && length(v.http_proxy_config) > 0 }
   sensitive   = true
 }
 output "kubernetes_clusters_identity" {
   description = "Map of identity values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.identity if v.identity != null && length(v.identity) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.identity) if v.identity != null && length(v.identity) > 0 }
 }
 output "kubernetes_clusters_image_cleaner_enabled" {
   description = "Map of image_cleaner_enabled values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
@@ -101,15 +101,15 @@ output "kubernetes_clusters_image_cleaner_interval_hours" {
 }
 output "kubernetes_clusters_ingress_application_gateway" {
   description = "Map of ingress_application_gateway values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.ingress_application_gateway if v.ingress_application_gateway != null && length(v.ingress_application_gateway) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.ingress_application_gateway) if v.ingress_application_gateway != null && length(v.ingress_application_gateway) > 0 }
 }
 output "kubernetes_clusters_key_management_service" {
   description = "Map of key_management_service values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.key_management_service if v.key_management_service != null && length(v.key_management_service) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.key_management_service) if v.key_management_service != null && length(v.key_management_service) > 0 }
 }
 output "kubernetes_clusters_key_vault_secrets_provider" {
   description = "Map of key_vault_secrets_provider values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.key_vault_secrets_provider if v.key_vault_secrets_provider != null && length(v.key_vault_secrets_provider) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.key_vault_secrets_provider) if v.key_vault_secrets_provider != null && length(v.key_vault_secrets_provider) > 0 }
 }
 output "kubernetes_clusters_kube_admin_config" {
   description = "Map of kube_admin_config values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
@@ -133,7 +133,7 @@ output "kubernetes_clusters_kube_config_raw" {
 }
 output "kubernetes_clusters_kubelet_identity" {
   description = "Map of kubelet_identity values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.kubelet_identity if v.kubelet_identity != null && length(v.kubelet_identity) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.kubelet_identity) if v.kubelet_identity != null && length(v.kubelet_identity) > 0 }
 }
 output "kubernetes_clusters_kubernetes_version" {
   description = "Map of kubernetes_version values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
@@ -141,7 +141,7 @@ output "kubernetes_clusters_kubernetes_version" {
 }
 output "kubernetes_clusters_linux_profile" {
   description = "Map of linux_profile values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.linux_profile if v.linux_profile != null && length(v.linux_profile) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.linux_profile) if v.linux_profile != null && length(v.linux_profile) > 0 }
 }
 output "kubernetes_clusters_local_account_disabled" {
   description = "Map of local_account_disabled values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
@@ -153,23 +153,23 @@ output "kubernetes_clusters_location" {
 }
 output "kubernetes_clusters_maintenance_window" {
   description = "Map of maintenance_window values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.maintenance_window if v.maintenance_window != null && length(v.maintenance_window) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.maintenance_window) if v.maintenance_window != null && length(v.maintenance_window) > 0 }
 }
 output "kubernetes_clusters_maintenance_window_auto_upgrade" {
   description = "Map of maintenance_window_auto_upgrade values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.maintenance_window_auto_upgrade if v.maintenance_window_auto_upgrade != null && length(v.maintenance_window_auto_upgrade) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.maintenance_window_auto_upgrade) if v.maintenance_window_auto_upgrade != null && length(v.maintenance_window_auto_upgrade) > 0 }
 }
 output "kubernetes_clusters_maintenance_window_node_os" {
   description = "Map of maintenance_window_node_os values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.maintenance_window_node_os if v.maintenance_window_node_os != null && length(v.maintenance_window_node_os) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.maintenance_window_node_os) if v.maintenance_window_node_os != null && length(v.maintenance_window_node_os) > 0 }
 }
 output "kubernetes_clusters_microsoft_defender" {
   description = "Map of microsoft_defender values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.microsoft_defender if v.microsoft_defender != null && length(v.microsoft_defender) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.microsoft_defender) if v.microsoft_defender != null && length(v.microsoft_defender) > 0 }
 }
 output "kubernetes_clusters_monitor_metrics" {
   description = "Map of monitor_metrics values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.monitor_metrics if v.monitor_metrics != null && length(v.monitor_metrics) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.monitor_metrics) if v.monitor_metrics != null && length(v.monitor_metrics) > 0 }
 }
 output "kubernetes_clusters_name" {
   description = "Map of name values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
@@ -177,7 +177,7 @@ output "kubernetes_clusters_name" {
 }
 output "kubernetes_clusters_network_profile" {
   description = "Map of network_profile values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.network_profile if v.network_profile != null && length(v.network_profile) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.network_profile) if v.network_profile != null && length(v.network_profile) > 0 }
 }
 output "kubernetes_clusters_node_os_upgrade_channel" {
   description = "Map of node_os_upgrade_channel values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
@@ -185,7 +185,7 @@ output "kubernetes_clusters_node_os_upgrade_channel" {
 }
 output "kubernetes_clusters_node_provisioning_profile" {
   description = "Map of node_provisioning_profile values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.node_provisioning_profile if v.node_provisioning_profile != null && length(v.node_provisioning_profile) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.node_provisioning_profile) if v.node_provisioning_profile != null && length(v.node_provisioning_profile) > 0 }
 }
 output "kubernetes_clusters_node_resource_group" {
   description = "Map of node_resource_group values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
@@ -205,7 +205,7 @@ output "kubernetes_clusters_oidc_issuer_url" {
 }
 output "kubernetes_clusters_oms_agent" {
   description = "Map of oms_agent values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.oms_agent if v.oms_agent != null && length(v.oms_agent) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.oms_agent) if v.oms_agent != null && length(v.oms_agent) > 0 }
 }
 output "kubernetes_clusters_open_service_mesh_enabled" {
   description = "Map of open_service_mesh_enabled values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
@@ -245,11 +245,11 @@ output "kubernetes_clusters_run_command_enabled" {
 }
 output "kubernetes_clusters_service_mesh_profile" {
   description = "Map of service_mesh_profile values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.service_mesh_profile if v.service_mesh_profile != null && length(v.service_mesh_profile) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.service_mesh_profile) if v.service_mesh_profile != null && length(v.service_mesh_profile) > 0 }
 }
 output "kubernetes_clusters_service_principal" {
   description = "Map of service_principal values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.service_principal if v.service_principal != null && length(v.service_principal) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.service_principal) if v.service_principal != null && length(v.service_principal) > 0 }
   sensitive   = true
 }
 output "kubernetes_clusters_sku_tier" {
@@ -258,7 +258,7 @@ output "kubernetes_clusters_sku_tier" {
 }
 output "kubernetes_clusters_storage_profile" {
   description = "Map of storage_profile values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.storage_profile if v.storage_profile != null && length(v.storage_profile) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.storage_profile) if v.storage_profile != null && length(v.storage_profile) > 0 }
 }
 output "kubernetes_clusters_support_plan" {
   description = "Map of support_plan values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
@@ -270,20 +270,20 @@ output "kubernetes_clusters_tags" {
 }
 output "kubernetes_clusters_upgrade_override" {
   description = "Map of upgrade_override values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.upgrade_override if v.upgrade_override != null && length(v.upgrade_override) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.upgrade_override) if v.upgrade_override != null && length(v.upgrade_override) > 0 }
 }
 output "kubernetes_clusters_web_app_routing" {
   description = "Map of web_app_routing values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.web_app_routing if v.web_app_routing != null && length(v.web_app_routing) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.web_app_routing) if v.web_app_routing != null && length(v.web_app_routing) > 0 }
 }
 output "kubernetes_clusters_windows_profile" {
   description = "Map of windows_profile values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.windows_profile if v.windows_profile != null && length(v.windows_profile) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.windows_profile) if v.windows_profile != null && length(v.windows_profile) > 0 }
   sensitive   = true
 }
 output "kubernetes_clusters_workload_autoscaler_profile" {
   description = "Map of workload_autoscaler_profile values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
-  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => v.workload_autoscaler_profile if v.workload_autoscaler_profile != null && length(v.workload_autoscaler_profile) > 0 }
+  value       = { for k, v in azurerm_kubernetes_cluster.kubernetes_clusters : k => one(v.workload_autoscaler_profile) if v.workload_autoscaler_profile != null && length(v.workload_autoscaler_profile) > 0 }
 }
 output "kubernetes_clusters_workload_identity_enabled" {
   description = "Map of workload_identity_enabled values across all kubernetes_clusters, keyed the same as var.kubernetes_clusters"
